@@ -1,0 +1,73 @@
+package sample;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.Select;
+
+public class MasterData {
+
+	public static void main(String[] args) throws InterruptedException {
+
+
+System.setProperty("webdriver.chrome.driver", "C:\\selenium webdriver\\Chromedriver\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+		
+		ChromeOptions co = new ChromeOptions();
+		co.setBinary("C:\\Users\\MicroApt\\Downloads\\chrome-win64\\chrome-win64\\chrome.exe");
+		
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://admin.engagetoelect.com/login");		
+		driver.manage().window().maximize();
+		
+		WebElement email = driver.findElement(By.name("email"));
+		email.sendKeys("vishnutest60@gmail.com");
+		
+		WebElement password = driver.findElement(By.name("password"));
+		password.sendKeys("password");
+		
+		driver.findElement(By.id("login_btn")).click();
+		
+		WebElement posts = driver.findElement(By.xpath("//div[contains(text(),'Posts')]"));
+		posts.click();
+		
+		WebElement post2 = driver.findElement(By.xpath("//div[contains(text(),' Published Post ')]"));
+		post2.click();
+		
+		WebElement post1 = driver.findElement(By.xpath("//div[@class='hidden md:block mx-auto text-slate-500']"));
+		System.out.println(post1.getText());
+		
+		WebElement search = driver.findElement(By.xpath("//input[@class='form-control w-56 box pr-10']"));
+		search.sendKeys("Leader");
+		search.click();
+		
+		WebElement radiobutton = driver.findElement(By.name("published"));
+		radiobutton.click();
+		
+		Thread.sleep(2000);
+		
+		WebElement unpublished = driver.findElement(By.xpath("//div[contains(text(),'UnPublished Post')]"));
+		unpublished.click();
+		
+		Thread.sleep(3000);
+		
+		java.util.List<WebElement> elements = driver.findElements(By.xpath("//button[@class='flex items-center text-danger']")); 
+        int desiredIndex = 2; 
+        if (desiredIndex >= 0 && desiredIndex < elements.size()) {
+            elements.get(desiredIndex).click();
+        } else {
+            System.out.println("Desired index is out of bounds");
+        }
+		Thread.sleep(3000);
+        driver.navigate().back();
+        
+        WebElement radiobutton1 = driver.findElement(By.name("published"));
+		radiobutton1.click();
+		
+		Thread.sleep(3000);
+		
+		driver.quit();
+	}
+
+}
